@@ -1,6 +1,6 @@
 let audio1 = new Audio()
 audio1.src =
-  'https://alandouglasphotography.s3.eu-central-1.amazonaws.com/modjo-lady.mp3'
+  'https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg'
 let playing = false
 
 container.addEventListener('click', function () {
