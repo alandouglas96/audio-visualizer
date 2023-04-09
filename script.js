@@ -1,4 +1,5 @@
 let audio1 = new Audio()
+audio5.crossOrigin = 'anonymous'
 audio1.src =
   'https://alandouglasphotography.s3.eu-central-1.amazonaws.com/modjo-lady.mp3'
 let playing = false
