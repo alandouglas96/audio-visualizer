@@ -9,8 +9,8 @@ const drawVisualizer = ({ bufferLength, dataArray }) => {
 
   let barHeight
   for (let i = 0; i < bufferLength; i++) {
-    barHeight = dataArray[i] * 4
-    const red = (i * barHeight) / 30
+    barHeight = dataArray[i] * 2
+    const red = (i * barHeight) / 15
     const green = i * 4
     const blue = barHeight / 4 - 12
     ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`
@@ -25,8 +25,8 @@ const drawVisualizer = ({ bufferLength, dataArray }) => {
 
   let secondX = 0
   for (let i = 0; i < bufferLength; i++) {
-    barHeight = dataArray[i] * 4
-    const red = (i * barHeight) / 30
+    barHeight = dataArray[i] * 2
+    const red = (i * barHeight) / 15
     const green = i * 4
     const blue = barHeight / 4 - 12
     ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`

@@ -1,5 +1,6 @@
 let audio1 = new Audio()
-audio1.src = 'modjo-lady.mp3'
+audio1.src =
+  'https://alandouglasphotography.s3.eu-central-1.amazonaws.com/modjo-lady.mp3'
 let playing = false
 
 container.addEventListener('click', function () {
@@ -7,15 +8,13 @@ container.addEventListener('click', function () {
   if (playing) {
     audio1.play()
     document.getElementById('playText').innerHTML = 'Tap to pause!'
-    const worker = new Worker(new URL('./worker.js', import.meta.url))
+
     let canvas = document.getElementById('canvas').transferControlToOffscreen()
+    const worker = new Worker(new URL('./worker.js', import.meta.url))
 
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
     worker.postMessage({ canvas }, [canvas])
-
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
     let audioSource = null
