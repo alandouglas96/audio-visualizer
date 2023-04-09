@@ -1,6 +1,6 @@
 let audio1 = new Audio()
 audio1.src =
-  'https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg'
+  'https://firebasestorage.googleapis.com/v0/b/audio-visualizer-c0c39.appspot.com/o/modjo-lady.mp3?alt=media&token=57868ad0-1c58-459e-a78e-7b217d0553e0'
 let playing = false
 
 container.addEventListener('click', function () {
