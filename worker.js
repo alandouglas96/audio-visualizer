@@ -42,7 +42,6 @@ const drawVisualizer = ({ bufferLength, dataArray }) => {
 
 onmessage = function (e) {
   console.log('Worker: Message received from main script')
-  // console.log('E DATA >>>>>> ', e.data)
   const { bufferLength, dataArray, canvas: canvasMessage } = e.data
   if (canvasMessage) {
     canvas = canvasMessage
