@@ -10,10 +10,9 @@ container.addEventListener('click', function () {
   playing = !playing
   if (playing) {
     audio1.play()
-    document.getElementById('playText').innerHTML = 'Tap to pause!'
+    document.getElementById('playText').innerHTML = 'PAUSE'
 
     if (isSafari) {
-      console.log('IS SAFARI >>>> ', isSafari)
       let canvas = document.getElementById('canvas')
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
@@ -75,7 +74,7 @@ container.addEventListener('click', function () {
     }
   } else {
     audio1.pause()
-    document.getElementById('playText').innerHTML = 'Tap to play!'
+    document.getElementById('playText').innerHTML = 'PLAY'
   }
 })
 
