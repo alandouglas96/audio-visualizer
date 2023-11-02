@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'VHS';
+  src: url('./font/KindlyRewind-BOon.ttf');
+  /* font-weight: normal;
+  font-style: normal;
+  font-display: auto; */
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -34,6 +42,13 @@
   text-align: center;
   color: white;
   font-size: 48px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'VHS';
   pointer-events: none;
+}
+
+/* Mobile breakpoint */
+@media (max-width: 768px) {
+  #playText {
+    font-size: 24px;
+  }
 }
