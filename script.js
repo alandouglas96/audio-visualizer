@@ -6,6 +6,13 @@ let playing = false
 
 var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)
 
+let animationId = 'temp'
+let worker = null
+
+let audioSource = null
+let analyser = null
+let audioCtx = null
+
 container.addEventListener('click', function () {
   playing = !playing
   if (playing) {
@@ -17,12 +24,12 @@ container.addEventListener('click', function () {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
 
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
-      let audioSource = null
-      let analyser = null
+      if (audioSource === null) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+        audioSource = audioCtx.createMediaElementSource(audio1)
+        analyser = audioCtx.createAnalyser()
+      }
 
-      audioSource = audioCtx.createMediaElementSource(audio1)
-      analyser = audioCtx.createAnalyser()
       audioSource.connect(analyser)
       analyser.connect(audioCtx.destination)
 
@@ -35,26 +42,47 @@ container.addEventListener('click', function () {
         x = 0
         analyser.getByteFrequencyData(dataArray)
         drawVisualizerForSafari({ bufferLength, dataArray }, {})
-        requestAnimationFrame(animateSafari)
+        animationId = requestAnimationFrame(animateSafari)
       }
 
       animateSafari()
     } else {
-      let canvas = document
-        .getElementById('canvas')
-        .transferControlToOffscreen()
-      const worker = new Worker(new URL('./worker.js', import.meta.url))
+      // TESTINGAL -> Using service worker
+      // let canvas = document.getElementById('canvas')
+      // canvas.width = window.innerWidth
+      // canvas.height = window.innerHeight
+      // let offscreenCanvas = canvas.transferControlToOffscreen()
+      // worker = new Worker(new URL('./worker.js', import.meta.url))
+      // worker.postMessage({ offscreenCanvas }, [offscreenCanvas])
+      // if (audioSource === null) {
+      //   audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+      //   audioSource = audioCtx.createMediaElementSource(audio1)
+      //   analyser = audioCtx.createAnalyser()
+      // }
+      // audioSource.connect(analyser)
+      // analyser.connect(audioCtx.destination)
+      // analyser.fftSize = 128
+      // const bufferLength = analyser.frequencyBinCount
+      // const dataArray = new Uint8Array(bufferLength)
+      // let x = 0
+      // function animate() {
+      //   x = 0
+      //   analyser.getByteFrequencyData(dataArray)
+      //   worker.postMessage({ bufferLength, dataArray }, {})
+      //   animationId = requestAnimationFrame(animate)
+      // }
+      // animate()
 
+      let canvas = document.getElementById('canvas')
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
-      worker.postMessage({ canvas }, [canvas])
 
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
-      let audioSource = null
-      let analyser = null
+      if (audioSource === null) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+        audioSource = audioCtx.createMediaElementSource(audio1)
+        analyser = audioCtx.createAnalyser()
+      }
 
-      audioSource = audioCtx.createMediaElementSource(audio1)
-      analyser = audioCtx.createAnalyser()
       audioSource.connect(analyser)
       analyser.connect(audioCtx.destination)
 
@@ -63,17 +91,18 @@ container.addEventListener('click', function () {
       const dataArray = new Uint8Array(bufferLength)
 
       let x = 0
-      function animate() {
+      function animateSafari() {
         x = 0
         analyser.getByteFrequencyData(dataArray)
-        worker.postMessage({ bufferLength, dataArray }, {})
-        requestAnimationFrame(animate)
+        drawVisualizerForSafari({ bufferLength, dataArray }, {})
+        animationId = requestAnimationFrame(animateSafari)
       }
 
-      animate()
+      animateSafari()
     }
   } else {
     audio1.pause()
+    cancelAnimationFrame(animationId)
     document.getElementById('playText').innerHTML = 'PLAY'
   }
 })
