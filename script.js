@@ -103,7 +103,7 @@ container.addEventListener('click', function () {
   } else {
     audio1.pause()
     cancelAnimationFrame(animationId)
-    document.getElementById('playText').innerHTML = 'PLAY'
+    document.getElementById('playText').innerHTML = 'PRESS TO PLAY'
   }
 })
 
