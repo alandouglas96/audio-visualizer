@@ -1,7 +1,8 @@
 let audio1 = new Audio()
 audio1.crossOrigin = 'anonymous'
 audio1.src =
-  'https://alandouglasphotography.s3.eu-central-1.amazonaws.com/modjo-lady.mp3'
+  // 'https://alandouglasphotography.s3.eu-central-1.amazonaws.com/modjo-lady.mp3'
+  'https://cdn.sanity.io/files/7og2dskj/production/b2882c52227e91c11d8f132489e9c93edddcd75e.m4a'
 let playing = false
 
 var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)
@@ -91,14 +92,14 @@ container.addEventListener('click', function () {
       const dataArray = new Uint8Array(bufferLength)
 
       let x = 0
-      function animateSafari() {
+      function animateBrowser() {
         x = 0
         analyser.getByteFrequencyData(dataArray)
         drawVisualizerForSafari({ bufferLength, dataArray }, {})
-        animationId = requestAnimationFrame(animateSafari)
+        animationId = requestAnimationFrame(animateBrowser)
       }
 
-      animateSafari()
+      animateBrowser()
     }
   } else {
     audio1.pause()
